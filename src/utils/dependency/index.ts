@@ -54,7 +54,7 @@ export function genAntdvStyleLink(version: string) {
   return genCdnLink(
     'ant-design-vue',
     version,
-    Number(version) > 3 ? '/dist/reset.css' : '/dist/antd.css',
+    Number(version[0]) > 3 ? '/dist/reset.css' : '/dist/antd.css',
   );
 }
 

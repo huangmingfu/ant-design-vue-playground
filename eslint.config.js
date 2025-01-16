@@ -20,6 +20,7 @@ export default antfu({
   rules: {
     // 调试用
     'no-console': 'off',
+    'unused-imports/no-unused-vars': 'off',
   },
   // 忽略某些文件或目录
   ignores: [

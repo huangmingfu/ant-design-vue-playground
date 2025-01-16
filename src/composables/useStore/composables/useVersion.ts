@@ -12,12 +12,9 @@ export function useVersion({
   versions: Versions;
 }) {
   async function setVueVersion(version: string) {
-    const code = await import(
+    store.compiler = await import(
       /* @vite-ignore */ genCompilerSfcLink(version)
     );
-
-    console.log(`code -->`, code);
-    store.compiler = code;
     versions.vue = version;
   };
 

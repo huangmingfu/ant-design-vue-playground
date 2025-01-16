@@ -1,4 +1,5 @@
-<!-- <script setup lang="ts">
+<script setup lang="ts">
+import { SyncOutlined } from '@ant-design/icons-vue';
 import { ref } from 'vue';
 
 const appVersion = ref('1.0.0');
@@ -30,6 +31,21 @@ function toggleDark() {
 </script>
 
 <template>
+  <a-space wrap>
+    <a-button type="primary">
+      Primary Button
+    </a-button>
+    <a-button>Default Button</a-button>
+    <a-button type="dashed">
+      Dashed Button
+    </a-button>
+    <a-button type="text">
+      Text Button
+    </a-button>
+    <a-button type="link">
+      Link Button
+    </a-button>
+  </a-space>
   <nav>
     <div :style="{ lineHeight: 'var(--nav-height)' }" class="m-0 flex items-center font-medium">
       <img
@@ -39,21 +55,8 @@ function toggleDark() {
       >
       <div class="flex items-center gap-1 lt-sm-hidden">
         <div class="text-xl">
-          Element Plus Playground
+          Ant Design Vue Playground
         </div>
-        <a-tag size="small">
-          v{{ appVersion }}, repl v{{ replVersion }}, volar v{{
-            languageToolsVersion
-          }}
-        </a-tag>
-        <a-tag v-if="store.pr" size="small">
-          <a-link
-            type="primary"
-            :href="`https://github.com/element-plus/element-plus/pull/${store.pr}`"
-          >
-            PR {{ store.pr }}
-          </a-link>
-        </a-tag>
       </div>
     </div>
 
@@ -92,12 +95,9 @@ function toggleDark() {
       </div>
 
       <div class="flex gap-4 text-lg">
-        <button class="i-ri-refresh-line hover:color-primary" @click="refreshView" />
-        <button class="i-ri-share-line hover:color-primary" @click="copyLink" />
-        <button
-          class="i-ri-sun-line dark:i-ri-moon-line hover:color-primary"
-          @click="toggleDark()"
-        />
+        <button class="hover:color-primary i-ri-refresh-line" @click="refreshView" />
+        <SyncOutlined />
+        <button class="hover:color-primary i-ri-share-line" @click="copyLink" />
         <a
           href="https://github.com/element-plus/element-plus-playground"
           target="_blank"
@@ -109,7 +109,7 @@ function toggleDark() {
         <a-popover trigger="click" :width="300">
           <Settings />
           <template #reference>
-            <button class="i-ri:settings-line hover:color-primary" />
+            <button class="hover:color-primary i-ri:settings-line" />
           </template>
         </a-popover>
       </div>
@@ -119,9 +119,4 @@ function toggleDark() {
 
 <style scoped>
 /* 样式可以根据需要进行调整 */
-</style> -->
-<template>
-  <div>
-    222
-  </div>
-</template>
+</style>

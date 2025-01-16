@@ -20,16 +20,7 @@ export function useStore(initial: Initial) {
     typescript: '5.0.2',
   });
 
-  // const { vueVersion, importMap } = useVueImportMap();
-  // const store = useReplStore(
-  //   {
-  //     builtinImportMap: importMap,
-  //     vueVersion,
-  //   },
-  //   location.hash,
-  // );
   const builtinImportMap = computed<ImportMap>(() => genImportMap(versions));
-  console.log(`builtinImportMap -->`, builtinImportMap.value);
 
   const storeState: Partial<StoreState> = toRefs(
     reactive({
@@ -50,7 +41,6 @@ export function useStore(initial: Initial) {
     }),
   );
 
-  console.log(`storeState -->`, storeState);
   const store = useReplStore(storeState);
 
   const { serialize } = useUserOptions(store);
@@ -59,37 +49,6 @@ export function useStore(initial: Initial) {
     store,
     versions,
   });
-
-  // function initFiles() {
-  //   const files: Record<string, File> = Object.create(null);
-  //   if (saved) {
-  //     for (let [filename, file] of Object.entries(objectOmit(saved, ['_o']))) {
-  //       if (
-  //         ![IMPORT_MAP, TSCONFIG].includes(filename)
-  //         && !filename.startsWith('src/')
-  //       ) {
-  //         filename = `src/${filename}`;
-  //       }
-  //       if (filename === LEGACY_IMPORT_MAP) {
-  //         filename = IMPORT_MAP;
-  //       }
-  //       files[filename] = new File(filename, file as string);
-  //     }
-  //   }
-  //   else {
-  //     files[APP_FILE] = new File(APP_FILE, welcomeCode);
-  //   }
-  //   if (!files[ANTDV_FILE]) {
-  //     files[ANTDV_FILE] = new File(
-  //       ANTDV_FILE,
-  //       generateAntDesignVueCode(versions.antDesignVue),
-  //     );
-  //   }
-  //   if (!files[TSCONFIG]) {
-  //     files[TSCONFIG] = new File(TSCONFIG, tsconfigCode);
-  //   }
-  //   return files;
-  // }
 
   function init() {
     watchEffect(() => {
