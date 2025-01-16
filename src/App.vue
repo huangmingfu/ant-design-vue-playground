@@ -3,6 +3,7 @@ import { Header } from '@/components';
 import { useAutoSaveState, useStore } from '@/composables';
 import { Repl } from '@vue/repl';
 import Monaco from '@vue/repl/monaco-editor';
+import { message } from 'ant-design-vue';
 import { ref, useTemplateRef, watchEffect } from 'vue';
 
 const loading = ref(true);
@@ -20,6 +21,7 @@ const store = useStore({
 });
 function refreshPreview() {
   replRef.value?.reload();
+  message.success('刷新成功!');
 }
 
 // persist state
@@ -30,14 +32,10 @@ watchEffect(() =>
     `${location.origin}${location.pathname}#${store.serialize()}`,
   ),
 );
-
-// eslint-disable-next-line ts/ban-ts-comment
-// @ts-expect-error
-globalThis.store = store;
 </script>
 
 <template>
-  <div v-if="!loading" class="antialiased">
+  <a-spin :spinning="loading" tip="Loading..." size="large">
     <Header :store="store" @refresh="refreshPreview" />
     <Repl
       ref="repl"
@@ -50,9 +48,6 @@ globalThis.store = store;
       @keydown.ctrl.s.prevent
       @keydown.meta.s.prevent
     />
-  </div>
-  <a-spin v-else tip="Loading..." size="large">
-    <div class="h-100vh" />
   </a-spin>
 </template>
 

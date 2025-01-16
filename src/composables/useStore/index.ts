@@ -1,7 +1,7 @@
 import type { Initial, SerializeState } from './types';
 import mainCode from '@/template/main.vue?raw';
 import { genImportMap, type Versions } from '@/utils/dependency';
-import { compileFile, type ImportMap, mergeImportMap, type StoreState, useStore as useReplStore } from '@vue/repl';
+import { compileFile, type ImportMap, mergeImportMap, useStore as useReplStore } from '@vue/repl';
 import { useDebounceFn } from '@vueuse/core';
 import { computed, reactive, toRefs, watch, watchEffect } from 'vue';
 import { useUserOptions } from './composables/useUserOptions';
@@ -22,7 +22,7 @@ export function useStore(initial: Initial) {
 
   const builtinImportMap = computed<ImportMap>(() => genImportMap(versions));
 
-  const storeState: Partial<StoreState> = toRefs(
+  const store = useReplStore(toRefs(
     reactive({
       files: initFiles(versions, saved),
       mainFile: MAIN_FILE,
@@ -39,11 +39,12 @@ export function useStore(initial: Initial) {
         },
       },
     }),
-  );
+  ));
 
-  const store = useReplStore(storeState);
-
-  const { serialize } = useUserOptions(store);
+  const { serialize, hideFile } = useUserOptions(store);
+  store.files[ANTDV_FILE].hidden = hideFile;
+  store.files[MAIN_FILE].hidden = hideFile;
+  store.files[IMPORT_MAP].hidden = hideFile;
   useVersion({
     initial,
     store,
@@ -105,3 +106,5 @@ export function useStore(initial: Initial) {
 
   return store as typeof store & typeof utils;
 }
+
+export type Store = ReturnType<typeof useStore>;

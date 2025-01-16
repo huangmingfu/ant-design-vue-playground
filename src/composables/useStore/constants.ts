@@ -1,4 +1,4 @@
-export const IS_DEV = import.meta.env.VITE_NODE_ENV;
+export const IS_DEV = import.meta.env.VITE_NODE_ENV === 'development';
 export const MAIN_FILE = 'src/PlaygroundMain.vue';
 export const APP_FILE = 'src/App.vue';
 export const ANTDV_FILE = 'src/ant-design-vue.js';

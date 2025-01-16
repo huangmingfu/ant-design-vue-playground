@@ -62,18 +62,18 @@ export function getPkgVersionsOptions() {
   // 由于不需要这么多的版本选择，所以直接写死（可根据公司相关项目进行调整）
   const pkgVersions: Record<VersionKey, { label: string; value: string }[]> = {
     antDesignVue: [
-      { label: '3.3.0-beta.4(admin_vue)', value: '3.3.0-beta.4' },
-      { label: '4.2.0(组件库)', value: '4.2.0' },
+      { label: '3.3.0-beta.4（admin_vue）', value: '3.3.0-beta.4' },
+      { label: '4.2.0（组件库）', value: '4.2.0' },
       { label: 'latest', value: 'latest' },
     ],
     vue: [
-      { label: '3.3.13(admin_vue)', value: '3.3.13' },
-      { label: '3.4.0(组件库)', value: '3.4.0' },
+      { label: '3.3.13（admin_vue）', value: '3.3.13' },
+      { label: '3.4.0（组件库）', value: '3.4.0' },
       { label: 'latest', value: 'latest' },
     ],
     typescript: [
-      { label: '5.0.2(admin_vue)', value: '5.0.2' },
-      { label: '5.1.0(组件库)', value: '5.1.0' },
+      { label: '5.0.2（admin_vue）', value: '5.0.2' },
+      { label: '5.1.0（组件库）', value: '5.1.0' },
       { label: 'latest', value: 'latest' },
     ],
   };

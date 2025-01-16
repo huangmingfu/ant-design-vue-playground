@@ -21,8 +21,4 @@ export function useVersion({
   setVueVersion(versions.vue).then(() => {
     initial.initialized?.();
   });
-
-  return {
-    versions,
-  };
 }

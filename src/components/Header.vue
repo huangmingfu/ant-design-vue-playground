@@ -1,57 +1,52 @@
 <script setup lang="ts">
-import { SyncOutlined } from '@ant-design/icons-vue';
-import { ref } from 'vue';
+import type { Store } from '@/composables';
+import type { VersionKey } from '@/utils/dependency';
+import { getPkgVersionsOptions } from '@/utils/dependency';
+import { copy } from '@/utils/tools';
+import { GithubFilled, ReloadOutlined, ShareAltOutlined } from '@ant-design/icons-vue';
+import { reactive } from 'vue';
 
-const appVersion = ref('1.0.0');
-const replVersion = ref('1.0.0');
-const languageToolsVersion = ref('1.0.0');
-const store = ref({ pr: null });
-const versions = ref({});
-const nightly = ref(false);
+const { store } = defineProps<{
+  store: Store;
+}>();
 
-function setVersion(key, event) {
-  // 处理版本设置逻辑
-}
+const emit = defineEmits<{
+  (e: 'refresh'): void;
+}>();
 
-function toggleNightly() {
-  // 处理 nightly 切换逻辑
+const options = getPkgVersionsOptions();
+
+const versions = reactive<Record<VersionKey, { text: string; active: string }>>({
+  antDesignVue: {
+    text: 'Ant Design Vue',
+    active: store.versions.antDesignVue,
+  },
+  vue: {
+    text: 'Vue',
+    active: store.versions.vue,
+  },
+  typescript: {
+    text: 'TypeScript',
+    active: store.versions.typescript,
+  },
+});
+
+function copyLink() {
+  copy(location.href, '可共享URL已被复制到剪贴板。');
 }
 
 function refreshView() {
-  // 处理刷新逻辑
-}
-
-function copyLink() {
-  // 处理复制链接逻辑
-}
-
-function toggleDark() {
-  // 处理暗黑模式切换逻辑
+  emit('refresh');
 }
 </script>
 
 <template>
-  <a-space wrap>
-    <a-button type="primary">
-      Primary Button
-    </a-button>
-    <a-button>Default Button</a-button>
-    <a-button type="dashed">
-      Dashed Button
-    </a-button>
-    <a-button type="text">
-      Text Button
-    </a-button>
-    <a-button type="link">
-      Link Button
-    </a-button>
-  </a-space>
   <nav>
     <div :style="{ lineHeight: 'var(--nav-height)' }" class="m-0 flex items-center font-medium">
       <img
         class="relative top--2px mr-2 h-6"
         alt="logo"
-        src="../assets/logo.svg"
+        src="/logo.svg"
       >
       <div class="flex items-center gap-1 lt-sm-hidden">
         <div class="text-xl">
@@ -68,55 +63,35 @@ function toggleDark() {
       >
         <span>{{ v.text }}:</span>
         <a-select
-          :model-value="v.active"
+          v-model:value="v.active"
           size="small"
-          style="width: 144px"
-          @update:model-value="setVersion(key, $event)"
-        >
-          <template v-if="key === 'elementPlus'" #header>
-            <div class="flex items-center">
-              <a-checkbox v-model:checked="nightly" @change="toggleNightly">
-                nightly
-              </a-checkbox>
-              <a-tooltip
-                placement="top"
-                title="A release of the development branch that is published every night."
-              >
-                <div
-                  class="i-ri-question-line hover:color-primary ml-1 h-4 w-4 cursor-pointer"
-                />
-              </a-tooltip>
-            </div>
-          </template>
-          <a-select-option v-for="ver of v.published" :key="ver" :value="ver">
-            {{ ver }}
-          </a-select-option>
-        </a-select>
+          :options="options[key]"
+        />
       </div>
-
       <div class="flex gap-4 text-lg">
-        <button class="hover:color-primary i-ri-refresh-line" @click="refreshView" />
-        <SyncOutlined />
-        <button class="hover:color-primary i-ri-share-line" @click="copyLink" />
+        <ReloadOutlined @click="refreshView" />
+        <ShareAltOutlined @click="copyLink" />
         <a
-          href="https://github.com/element-plus/element-plus-playground"
+          href="https://github.com/huangmingfu/ant-design-vue-playground"
           target="_blank"
           class="hover:color-primary flex"
         >
-          <button title="View on GitHub" class="i-ri-github-fill" />
+          <GithubFilled />
         </a>
-
-        <a-popover trigger="click" :width="300">
-          <Settings />
-          <template #reference>
-            <button class="hover:color-primary i-ri:settings-line" />
-          </template>
-        </a-popover>
       </div>
     </div>
   </nav>
 </template>
 
-<style scoped>
-/* 样式可以根据需要进行调整 */
+<style lang="scss" scoped>
+nav {
+  --bg: #fff;
+  --bg-light: #fff;
+  --border: #ddd;
+
+  --at-apply: 'box-border flex justify-between px-4 z-999 relative';
+
+  height: var(--nav-height);
+  background-color: var(--bg);
+}
 </style>
