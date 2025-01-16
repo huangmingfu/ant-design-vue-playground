@@ -42,9 +42,9 @@ export function useStore(initial: Initial) {
   ));
 
   const { serialize, hideFile } = useUserOptions(store);
-  store.files[ANTDV_FILE].hidden = hideFile;
-  store.files[MAIN_FILE].hidden = hideFile;
-  store.files[IMPORT_MAP].hidden = hideFile;
+  store.files[ANTDV_FILE] && (store.files[ANTDV_FILE].hidden = hideFile);
+  store.files[MAIN_FILE] && (store.files[MAIN_FILE].hidden = hideFile);
+  store.files[IMPORT_MAP] && (store.files[IMPORT_MAP].hidden = hideFile);
   useVersion({
     initial,
     store,
