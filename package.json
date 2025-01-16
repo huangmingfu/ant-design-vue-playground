@@ -1,0 +1,73 @@
+{
+  "name": "ant-design-vue-playground",
+  "type": "module",
+  "version": "0.0.0",
+  "packageManager": "pnpm@9.15.1",
+  "description": "ant-design-vue-playground 演练场",
+  "author": {
+    "name": "huangmingfu",
+    "email": "212149997@qq.com",
+    "url": "https://github.com/huangmingfu/ant-design-vue-playground"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/huangmingfu/ant-design-vue-playground",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/huangmingfu/ant-design-vue-playground"
+  },
+  "bugs": "https://github.com/huangmingfu/ant-design-vue-playground/issues",
+  "keywords": [
+    "ant-design-vue",
+    "vue3",
+    "vite",
+    "ant-design",
+    "ant-design-vue-playground"
+  ],
+  "scripts": {
+    "dev": "vite -m development",
+    "dev:test": "vite -m test",
+    "dev:pro": "vite -m production",
+    "build:dev": "pnpm vite build -m development",
+    "build:test": "pnpm vite build -m test",
+    "build:pro": "pnpm vite build -m production",
+    "preview:dev": "pnpm vite preview -m development",
+    "preview:test": "pnpm vite preview -m test",
+    "preview:pro": "pnpm vite preview -m production",
+    "typecheck": "vue-tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:inspector": "npx @eslint/config-inspector",
+    "clean": "rm -rf node_modules dist dist-*",
+    "preinstall": "npx only-allow pnpm",
+    "postinstall": "npx simple-git-hooks"
+  },
+  "dependencies": {
+    "@vue/repl": "^4.4.1",
+    "@vueuse/core": "^12.0.0",
+    "ant-design-vue": "^4.2.6",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^3.12.0",
+    "@types/node": "^22.10.2",
+    "@unocss/eslint-config": "^0.65.1",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vitejs/plugin-vue-jsx": "^4.1.1",
+    "@vue/tsconfig": "^0.7.0",
+    "eslint-plugin-format": "^0.1.3",
+    "lint-staged": "^15.2.11",
+    "sass": "^1.83.0",
+    "simple-git-hooks": "^2.11.1",
+    "typescript": "~5.7.2",
+    "unocss": "^0.65.1",
+    "unplugin-vue-components": "^28.0.0",
+    "vite": "^6.0.5",
+    "vue-tsc": "^2.1.10"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  }
+}
