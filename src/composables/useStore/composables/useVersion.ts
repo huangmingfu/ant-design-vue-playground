@@ -1,6 +1,6 @@
 import type { ReplStore } from '@vue/repl';
 import type { Initial } from '../types';
-import { genCompilerSfcLink, type Versions } from '@/utils/dependency';
+import { genCompilerSfcLink, type VersionKey, type Versions } from '@/utils/dependency';
 
 export function useVersion({
   initial,
@@ -18,7 +18,25 @@ export function useVersion({
     versions.vue = version;
   };
 
+  async function setVersion(key: VersionKey, version: string) {
+    switch (key) {
+      case 'vue':
+        await setVueVersion(version);
+        break;
+      case 'antDesignVue':
+        versions.antDesignVue = version;
+        break;
+      case 'typescript':
+        store.typescriptVersion = version;
+        break;
+    }
+  }
+
   setVueVersion(versions.vue).then(() => {
     initial.initialized?.();
   });
+
+  return {
+    setVersion,
+  };
 }

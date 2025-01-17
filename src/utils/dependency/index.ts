@@ -7,7 +7,7 @@ export * from './types';
 export function genCdnLink(pkg: string, version: string, path: string) {
   // 慢的话手动替换一下
   // TODO: 改为界面 select 选择，类似于element plus playground
-  // return `https://cdn.jsdelivr.net/npm/${pkg}@${version}${path}`;
+  return `https://cdn.jsdelivr.net/npm/${pkg}@${version}${path}`;
   return `https://unpkg.com/${pkg}@${version}${path}`;
   return `https://fastly.jsdelivr.net/npm/${pkg}${version}${path}`;
 }

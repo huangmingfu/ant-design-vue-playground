@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Store } from '@/composables';
 import type { VersionKey } from '@/utils/dependency';
+import type { SelectValue } from 'ant-design-vue/es/select';
 import { getPkgVersionsOptions } from '@/utils/dependency';
 import { copy } from '@/utils/tools';
 import { GithubFilled, ReloadOutlined, ShareAltOutlined } from '@ant-design/icons-vue';
@@ -30,6 +31,12 @@ const versions = reactive<Record<VersionKey, { text: string; active: string }>>(
     active: store.versions.typescript,
   },
 });
+
+async function setVersion(key: VersionKey, v: SelectValue) {
+  versions[key].active = `loading...`;
+  await store.setVersion(key, v as string);
+  versions[key].active = v as string;
+}
 
 function copyLink() {
   copy(location.href, '可共享URL已被复制到剪贴板。');
@@ -66,6 +73,7 @@ function refreshView() {
           v-model:value="v.active"
           size="small"
           :options="options[key]"
+          @update:value="setVersion(key, $event)"
         />
       </div>
       <div class="flex gap-4 text-lg">

@@ -2,11 +2,10 @@ import type { Initial, SerializeState } from './types';
 import mainCode from '@/template/main.vue?raw';
 import { genImportMap, type Versions } from '@/utils/dependency';
 import { compileFile, type ImportMap, mergeImportMap, useStore as useReplStore } from '@vue/repl';
-import { useDebounceFn } from '@vueuse/core';
 import { computed, reactive, toRefs, watch, watchEffect } from 'vue';
 import { useUserOptions } from './composables/useUserOptions';
 import { useVersion } from './composables/useVersion';
-import { ANTDV_FILE, APP_FILE, IMPORT_MAP, MAIN_FILE, TSCONFIG } from './constants';
+import { ANTDV_FILE, APP_FILE, IMPORT_MAP, MAIN_FILE } from './constants';
 import { deserialize, generateAntDesignVueCode, initFiles } from './utils';
 
 export function useStore(initial: Initial) {
@@ -44,8 +43,8 @@ export function useStore(initial: Initial) {
   const { serialize, hideFile } = useUserOptions(store);
   store.files[ANTDV_FILE] && (store.files[ANTDV_FILE].hidden = hideFile);
   store.files[MAIN_FILE] && (store.files[MAIN_FILE].hidden = hideFile);
-  store.files[IMPORT_MAP] && (store.files[IMPORT_MAP].hidden = hideFile);
-  useVersion({
+
+  const { setVersion } = useVersion({
     initial,
     store,
     versions,
@@ -60,18 +59,6 @@ export function useStore(initial: Initial) {
         continue;
       compileFile(store, file).then(errs => store.errors.push(...errs));
     }
-
-    watch(
-      () => [
-        store.files[TSCONFIG]?.code,
-        store.typescriptVersion,
-        store.locale,
-        store.dependencyVersion,
-        store.vueVersion,
-      ],
-      useDebounceFn(() => store.reloadLanguageTools?.(), 300),
-      { deep: true },
-    );
   }
 
   watch(
@@ -101,6 +88,7 @@ export function useStore(initial: Initial) {
     versions,
     serialize,
     init,
+    setVersion,
   };
   Object.assign(store, utils);
 

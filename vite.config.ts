@@ -29,6 +29,12 @@ export default defineConfig(({ mode }) => {
         ],
       }),
     ],
+    // 反向代理解决跨域问题
+    server: {
+      // open: true,// 运行时自动打开浏览器
+      host: '0.0.0.0', // 局域网别人也可访问
+      port: Number(env.VITE_APP_PORT), // 端口号
+    },
     esbuild: {
       pure: env.VITE_NODE_ENV === 'production' ? ['console.log', 'debugger'] : [],
     },
