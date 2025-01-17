@@ -6,6 +6,8 @@
 
 ## 技术栈
 
+[Element Plus Playground](https://github.com/element-plus/element-plus-playground) （**`主要参考`**）
+
 [Ant Design Vue](https://github.com/vueComponent/ant-design-vue)
 
 [UnoCSS](https://github.com/antfu/unocss)

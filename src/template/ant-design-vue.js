@@ -1,4 +1,4 @@
-import Antd from 'ant-design-vue';
+import * as Antd from 'ant-design-vue';
 import { getCurrentInstance } from 'vue';
 
 let installed = false;
@@ -6,6 +6,7 @@ let installed = false;
 await loadStyle();
 
 export function setupAntDesignVue() {
+
   if (installed)
     return;
   const instance = getCurrentInstance();
