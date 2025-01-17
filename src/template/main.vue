@@ -11,7 +11,7 @@ setupAntDesignVue();
   <div style="margin: 10px;">
     <App />
     <!-- 固定展示版本号 -->
-    <p style="position: fixed; bottom: 0;">
+    <p style="position: fixed; bottom: 10px;">
       Ant Design Vue：<span style="color: #1890FF;">{{ antdVersion }}</span>
       <br/>
       Vue：<span style="color: #1890FF;">{{ vueVersion }}</span>

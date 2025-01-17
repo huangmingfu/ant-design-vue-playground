@@ -1,4 +1,3 @@
-import { tryOnScopeDispose } from '@vueuse/core';
 import { ref, watch } from 'vue';
 
 export function useAutoSaveState() {
@@ -13,9 +12,7 @@ export function useAutoSaveState() {
     localStorage.setItem(AUTO_SAVE_KEY, JSON.stringify(value));
   }
 
-  const stopWatch = watch(autoSave, setAutoSaveState);
-
-  tryOnScopeDispose(stopWatch);
+  watch(autoSave, setAutoSaveState);
 
   return {
     autoSave,
