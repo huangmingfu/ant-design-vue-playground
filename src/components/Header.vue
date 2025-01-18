@@ -33,12 +33,12 @@ const cdnOptions = [
 const versions = reactive<Record<VersionKey, { text: string; active: string ; published: Ref<string[]> }>>({
   antDesignVue: {
     text: 'Ant Design Vue',
-    published: getSupportedVueVersions(),
+    published: getSupportedAntdVersions(),
     active: store.versions.antDesignVue,
   },
   vue: {
     text: 'Vue',
-    published: getSupportedAntdVersions(),
+    published: getSupportedVueVersions(),
     active: store.versions.vue,
   },
   typescript: {
