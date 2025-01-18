@@ -28,9 +28,7 @@
 
 ## TODO
 
-- [ ] 可以手动设置不同的 cdn 链接
-- [ ] 本地调试优化，从 node_modules 引入，而不是比较慢的 cdn
-- [ ] antdv 的图标尝试解决批量导入
+- [ ] antdv 的图标尝试解决批量导入的问题
 - [ ] cdn 加载 loading 优化
 
 ## License

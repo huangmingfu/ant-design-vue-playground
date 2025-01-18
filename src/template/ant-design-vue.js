@@ -6,7 +6,6 @@ let installed = false;
 await loadStyle();
 
 export function setupAntDesignVue() {
-
   if (installed)
     return;
   const instance = getCurrentInstance();

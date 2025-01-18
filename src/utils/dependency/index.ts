@@ -1,15 +1,32 @@
 import type { ImportMap } from '@vue/repl';
-import type { Dependency, VersionKey, Versions } from './types';
+import type { MaybeRef, Ref } from 'vue';
+import type { Cdn, Dependency, Versions } from './types';
+import { devDepsProxy } from '@/proxy';
+import { useFetch, useLocalStorage } from '@vueuse/core';
+import { gte } from 'semver';
+import { computed, unref } from 'vue';
 
 export * from './types';
 
-// 可以改为公司的 cdn 路径，公共的加载比较慢
-export function genCdnLink(pkg: string, version: string, path: string) {
-  // 慢的话手动替换一下
-  // TODO: 改为界面 select 选择，类似于element plus playground
-  return `https://cdn.jsdelivr.net/npm/${pkg}@${version}${path}`;
-  return `https://unpkg.com/${pkg}@${version}${path}`;
-  return `https://fastly.jsdelivr.net/npm/${pkg}${version}${path}`;
+export const cdn = useLocalStorage<Cdn>('setting-cdn', 'jsdelivr');
+
+export function genCdnLink(
+  pkg: string,
+  version: string,
+  path: string,
+) {
+  // 开发不使用公共 cdn，提升 deps 加载速度
+  if (import.meta.env.VITE_NODE_ENV === 'development')
+    return devDepsProxy[pkg];
+
+  switch (cdn.value) {
+    case 'jsdelivr':
+      return `https://cdn.jsdelivr.net/npm/${pkg}@${version}${path}`;
+    case 'jsdelivr-fastly':
+      return `https://fastly.jsdelivr.net/npm/${pkg}@${version}${path}`;
+    case 'unpkg':
+      return `https://unpkg.com/${pkg}@${version}${path}`;
+  }
 }
 
 export function genCompilerSfcLink(version: string) {
@@ -65,29 +82,39 @@ export function genAntdvStyleLink(version: string) {
   );
 }
 
-export function getPkgVersionsOptions() {
-  // 由于不需要这么多的版本选择，所以直接写死（可根据公司相关项目进行调整）
-  const pkgVersions: Record<VersionKey, { label: string; value: string }[]> = {
-    antDesignVue: [
-      { label: '3.3.0-beta.4（admin_vue）', value: '3.3.0-beta.4' },
-      { label: '4.2.0（组件库）', value: '4.2.0' },
-      { label: 'latest', value: 'latest' },
-    ],
-    vue: [
-      { label: '3.3.13（admin_vue）', value: '3.3.13' },
-      { label: '3.4.0（组件库）', value: '3.4.0' },
-      { label: 'latest', value: 'latest' },
-    ],
-    typescript: [
-      { label: '5.0.2（admin_vue）', value: '5.0.2' },
-      { label: '5.1.0（组件库）', value: '5.1.0' },
-      { label: 'latest', value: 'latest' },
-    ],
-  };
-  return Object.fromEntries(
-    Object.entries(pkgVersions).map(([key, options]) => [
-      key,
-      options,
-    ]),
+export function getVersions(pkg: MaybeRef<string>) {
+  const url = computed(
+    () => `https://data.jsdelivr.com/v1/package/npm/${unref(pkg)}`,
   );
+  return useFetch(url, {
+    initialData: [],
+    afterFetch: (ctx) => {
+      ctx.data = ctx.data.versions;
+      return ctx;
+    },
+    refetch: true,
+  }).json<string[]>().data as Ref<string[]>;
+}
+
+export function getSupportedVueVersions() {
+  const versions = getVersions('vue');
+  return computed(() =>
+    versions.value.filter(version => !/alpha|rc|beta/.test(version) && gte(version, '3.0.0')),
+  );
+}
+
+export function getSupportedTSVersions() {
+  const versions = getVersions('typescript');
+  return computed(() =>
+    versions.value.filter(
+      version => !/alpha|rc|beta|dev/.test(version) && !version.includes('insiders') && gte(version, '3.2.0'),
+    ),
+  );
+}
+
+export function getSupportedAntdVersions() {
+  const versions = getVersions('ant-design-vue');
+  return computed(() => {
+    return versions.value.filter(version => !/alpha|rc|beta/.test(version) && gte(version, '3.0.0'));
+  });
 }

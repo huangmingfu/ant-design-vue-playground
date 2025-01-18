@@ -14,9 +14,9 @@ export function useStore(initial: Initial) {
     : undefined;
 
   const versions = reactive<Versions>({
-    vue: '3.3.13',
-    antDesignVue: '3.3.0-beta.4',
-    typescript: '5.0.2',
+    vue: 'latest',
+    antDesignVue: 'latest',
+    typescript: 'latest',
   });
 
   const builtinImportMap = computed<ImportMap>(() => genImportMap(versions));

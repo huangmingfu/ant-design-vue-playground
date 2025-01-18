@@ -2,10 +2,10 @@
 import type { Store } from '@/composables';
 import type { VersionKey } from '@/utils/dependency';
 import type { SelectValue } from 'ant-design-vue/es/select';
-import { getPkgVersionsOptions } from '@/utils/dependency';
+import { cdn, getSupportedAntdVersions, getSupportedTSVersions, getSupportedVueVersions } from '@/utils/dependency';
 import { copy } from '@/utils/tools';
-import { GithubFilled, ReloadOutlined, ShareAltOutlined } from '@ant-design/icons-vue';
-import { reactive } from 'vue';
+import { GithubFilled, ReloadOutlined, SettingOutlined, ShareAltOutlined } from '@ant-design/icons-vue';
+import { reactive, type Ref } from 'vue';
 
 const { store } = defineProps<{
   store: Store;
@@ -15,19 +15,35 @@ const emit = defineEmits<{
   (e: 'refresh'): void;
 }>();
 
-const options = getPkgVersionsOptions();
+const cdnOptions = [
+  {
+    label: 'jsDelivr',
+    value: 'jsdelivr',
+  },
+  {
+    label: 'jsDelivr Fastly',
+    value: 'jsdelivr-fastly',
+  },
+  {
+    label: 'unpkg',
+    value: 'unpkg',
+  },
+];
 
-const versions = reactive<Record<VersionKey, { text: string; active: string }>>({
+const versions = reactive<Record<VersionKey, { text: string; active: string ; published: Ref<string[]> }>>({
   antDesignVue: {
     text: 'Ant Design Vue',
+    published: getSupportedVueVersions(),
     active: store.versions.antDesignVue,
   },
   vue: {
     text: 'Vue',
+    published: getSupportedAntdVersions(),
     active: store.versions.vue,
   },
   typescript: {
     text: 'TypeScript',
+    published: getSupportedTSVersions(),
     active: store.versions.typescript,
   },
 });
@@ -72,9 +88,13 @@ function refreshView() {
         <a-select
           v-model:value="v.active"
           size="small"
-          :options="options[key]"
+          style="min-width: 180px"
           @update:value="setVersion(key, $event)"
-        />
+        >
+          <a-select-option v-for="ver of v.published" :key="ver" :value="ver">
+            {{ ver }}
+          </a-select-option>
+        </a-select>
       </div>
       <div class="flex gap-4 text-lg">
         <ReloadOutlined @click="refreshView" />
@@ -86,6 +106,16 @@ function refreshView() {
         >
           <GithubFilled />
         </a>
+        <a-popover trigger="click" placement="bottomRight">
+          <SettingOutlined />
+          <template #content>
+            <a-form>
+              <a-form-item label="CDN">
+                <a-select v-model:value="cdn" :options="cdnOptions" style="width: 200px" />
+              </a-form-item>
+            </a-form>
+          </template>
+        </a-popover>
       </div>
     </div>
   </nav>
