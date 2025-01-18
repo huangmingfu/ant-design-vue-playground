@@ -115,6 +115,7 @@ export function getSupportedTSVersions() {
 export function getSupportedAntdVersions() {
   const versions = getVersions('ant-design-vue');
   return computed(() => {
-    return versions.value.filter(version => !/alpha|rc|beta/.test(version) && gte(version, '3.0.0'));
+    // 3.3.0 之前的 antdv 版本无 antd.esm.js 的产物，即无 ES 模块版本，需要过滤
+    return versions.value.filter(version => version === '3.3.0-beta.4' || (!/alpha|rc|beta/.test(version) && gte(version, '4.0.0')));
   });
 }
