@@ -9,4 +9,7 @@ export type SerializeState = Record<string, string> & {
 
 export interface UserOptions {
   showHidden?: boolean;
+  vueVersion?: string;
+  tsVersion?: string;
+  antdvVersion?: string;
 }

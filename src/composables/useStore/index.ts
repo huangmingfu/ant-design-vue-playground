@@ -14,9 +14,9 @@ export function useStore(initial: Initial) {
     : undefined;
 
   const versions = reactive<Versions>({
-    vue: 'latest',
-    antDesignVue: 'latest',
-    typescript: 'latest',
+    vue: saved?._o?.vueVersion ?? 'latest',
+    antDesignVue: saved?._o?.antdvVersion ?? 'latest',
+    typescript: saved?._o?.tsVersion ?? 'latest',
   });
 
   const builtinImportMap = computed<ImportMap>(() => genImportMap(versions));
@@ -40,11 +40,12 @@ export function useStore(initial: Initial) {
     }),
   ));
 
-  const { serialize, hideFile } = useUserOptions(store);
+  const { serialize, hideFile, userOptions } = useUserOptions(store);
   store.files[ANTDV_FILE] && (store.files[ANTDV_FILE].hidden = hideFile);
   store.files[MAIN_FILE] && (store.files[MAIN_FILE].hidden = hideFile);
 
   const { setVersion } = useVersion({
+    userOptions,
     initial,
     store,
     versions,

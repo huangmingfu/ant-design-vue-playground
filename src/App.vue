@@ -25,12 +25,15 @@ function refreshPreview() {
 }
 
 // persist state
-watchEffect(() =>
+watchEffect(() => {
+  // eslint-disable-next-line ts/no-unused-expressions
+  store.typescriptVersion;
   history.replaceState(
     {},
     '',
     `${location.origin}${location.pathname}#${store.serialize()}`,
-  ),
+  );
+},
 );
 </script>
 

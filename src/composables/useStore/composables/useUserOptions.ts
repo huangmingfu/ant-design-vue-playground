@@ -14,6 +14,7 @@ export function useUserOptions(store: ReplStore) {
   }
 
   return {
+    userOptions,
     hideFile,
     serialize,
   };
