@@ -28,11 +28,6 @@
 
 [lint-staged](https://github.com/lint-staged/lint-staged)
 
-## TODO
-
-- [ ] antdv 的图标尝试解决批量导入的问题
-- [ ] cdn 加载 loading 优化
-
 ## License
 
 [MIT](./LICENSE)

@@ -56,7 +56,8 @@ export function genImportMap(versions: Versions): ImportMap {
       // 不能从 antd.js 或 antd.min.js 引入，会报错误：The requested module 'ant-design-vue' does not provide an export named 'default'
       // path: '/dist/antd.min.js',
     },
-    // TODO: 由于引入 antdv 的图标，会全部导入进来，导致加载很慢，暂时注释
+    // TODO: 暂时未找到 cdn 引入 @ant-design/icons-vue 图标库的 es 模块的方法
+    // 相关 issues：https://github.com/ant-design/ant-design-icons/issues/680
     // '@ant-design/icons-vue': {
     //   pkg: '@ant-design/icons-vue',
     //   version: 'latest',
