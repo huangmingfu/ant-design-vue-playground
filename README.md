@@ -6,7 +6,7 @@
 
 > 最低支持 `ant-design-vue` 3 版本的最后一个版本，即 `3.3.0-beta.4`。
 
-## 技术栈
+## 相关链接
 
 [Element Plus Playground](https://github.com/element-plus/element-plus-playground) （**`主要参考`**）
 
