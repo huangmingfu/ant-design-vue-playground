@@ -40,7 +40,7 @@ export function useStore(initial: Initial) {
     }),
   ));
 
-  const { serialize, hideFile, userOptions } = useUserOptions(store);
+  const { serialize, hideFile, userOptions } = useUserOptions(store, saved);
   store.files[ANTDV_FILE] && (store.files[ANTDV_FILE].hidden = hideFile);
   store.files[MAIN_FILE] && (store.files[MAIN_FILE].hidden = hideFile);
 

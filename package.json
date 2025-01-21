@@ -17,11 +17,12 @@
   },
   "bugs": "https://github.com/huangmingfu/ant-design-vue-playground/issues",
   "keywords": [
+    "vue",
     "ant-design-vue",
-    "vue3",
-    "vite",
     "ant-design",
-    "ant-design-vue-playground"
+    "ant-design-vue-playground",
+    "repl",
+    "playground"
   ],
   "scripts": {
     "dev": "vite -m development",
