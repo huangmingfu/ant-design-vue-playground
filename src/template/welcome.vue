@@ -5,7 +5,7 @@ const msg = ref('Hello World!')
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
+  <h1>{{ msg }} <smile-two-tone /></h1>
   <a-space direction="vertical">
     <a-input v-model:value="msg" />
     <a-popover title="Title">

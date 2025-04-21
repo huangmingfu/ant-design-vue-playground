@@ -1,7 +1,9 @@
+import type { Versions } from '@/utils/dependency';
+import type { ImportMap } from '@vue/repl';
 import type { Initial, SerializeState } from './types';
 import mainCode from '@/template/main.vue?raw';
-import { genImportMap, type Versions } from '@/utils/dependency';
-import { compileFile, type ImportMap, mergeImportMap, useStore as useReplStore } from '@vue/repl';
+import { genImportMap } from '@/utils/dependency';
+import { compileFile, mergeImportMap, useStore as useReplStore } from '@vue/repl';
 import { computed, reactive, toRefs, watch, watchEffect } from 'vue';
 import { useUserOptions } from './composables/useUserOptions';
 import { useVersion } from './composables/useVersion';

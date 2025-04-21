@@ -1,5 +1,6 @@
 import * as Antd from 'ant-design-vue';
 import { getCurrentInstance } from 'vue';
+import * as AntDesignIconsVue from "@ant-design/icons-vue";
 
 let installed = false;
 
@@ -9,7 +10,11 @@ export function setupAntDesignVue() {
   if (installed)
     return;
   const instance = getCurrentInstance();
-  instance.appContext.app.use(Antd);
+  const app = instance.appContext.app;
+  app.use(Antd);
+  Object.entries(AntDesignIconsVue).forEach(([name, comp]) => {
+    app.component(name, comp);
+  });
   installed = true;
 }
 

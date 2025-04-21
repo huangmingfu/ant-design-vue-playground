@@ -16,7 +16,7 @@ setupAntDesignVue();
       <br/>
       Vue：<span style="color: #1890FF;">{{ vueVersion }}</span>
       <br/>
-    (暂不支持引入 @ant-design/icons-vue 图标库)
+    <!-- (暂不支持引入 @ant-design/icons-vue 图标库) -->
     </p>
   </div>
 </template>

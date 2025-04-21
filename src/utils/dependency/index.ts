@@ -19,6 +19,9 @@ export function genCdnLink(
   if (import.meta.env.VITE_NODE_ENV === 'development')
     return devDepsProxy[pkg];
 
+  if (pkg === '@ant-design/icons-vue')
+    return path;
+
   switch (cdn.value) {
     case 'jsdelivr':
       return `https://cdn.jsdelivr.net/npm/${pkg}@${version}${path}`;
@@ -63,6 +66,12 @@ export function genImportMap(versions: Versions): ImportMap {
     //   version: 'latest',
     //   path: '/es/index.js',
     // },
+    // 临时解决方案：https://github.com/behappyok/ant-design-icons-vue-umd
+    '@ant-design/icons-vue': {
+      pkg: '@ant-design/icons-vue',
+      version: 'latest',
+      path: './ant-design-icons-vue.es.js',
+    },
   };
 
   return {

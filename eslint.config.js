@@ -20,5 +20,6 @@ export default antfu({
   // 忽略某些文件或目录
   ignores: [
     'src/template/*',
+    'public',
   ],
 });
