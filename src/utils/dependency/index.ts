@@ -1,10 +1,10 @@
 import type { ImportMap } from '@vue/repl';
 import type { MaybeRef, Ref } from 'vue';
 import type { Cdn, Dependency, Versions } from './types';
-import { devDepsProxy } from '@/proxy';
 import { useFetch, useLocalStorage } from '@vueuse/core';
 import { gte } from 'semver';
 import { computed, unref } from 'vue';
+import { devDepsProxy } from '@/proxy';
 
 export * from './types';
 

@@ -1,11 +1,12 @@
 import type { SerializeState } from './types';
+import type { Versions } from '@/utils/dependency';
+import { File } from '@vue/repl';
+import { objectOmit } from '@vueuse/core';
 import antDesignVueCode from '@/template/ant-design-vue.js?raw';
 import tsconfigCode from '@/template/tsconfig.json?raw';
 import welcomeCode from '@/template/welcome.vue?raw';
-import { genAntdvStyleLink, type Versions } from '@/utils/dependency';
+import { genAntdvStyleLink } from '@/utils/dependency';
 import { atou } from '@/utils/encode';
-import { File } from '@vue/repl';
-import { objectOmit } from '@vueuse/core';
 import { ANTDV_FILE, APP_FILE, IMPORT_MAP, LEGACY_IMPORT_MAP, TSCONFIG } from './constants';
 
 export function deserialize(text: string): SerializeState {

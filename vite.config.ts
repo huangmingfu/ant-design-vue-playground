@@ -35,9 +35,10 @@ export default defineConfig(({ mode }) => {
       host: '0.0.0.0', // 局域网别人也可访问
       port: Number(env.VITE_APP_PORT), // 端口号
     },
-    esbuild: {
-      pure: env.VITE_NODE_ENV === 'production' ? ['console.log', 'debugger'] : [],
-    },
+    // 打包 pro 报错，新版 esbuild 不适用该配置
+    // esbuild: {
+    //   pure: env.VITE_NODE_ENV === 'production' ? ['console.log', 'debugger'] : [],
+    // },
     build: {
       target: 'esnext',
       outDir: env.VITE_OUT_DIR || 'dist',

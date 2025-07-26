@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { Header } from '@/components';
-import { useAutoSaveState, useStore } from '@/composables';
 import { Repl } from '@vue/repl';
 import Monaco from '@vue/repl/monaco-editor';
 import { message } from 'ant-design-vue';
 import { ref, useTemplateRef, watchEffect } from 'vue';
+import { Header } from '@/components';
+import { useAutoSaveState, useStore } from '@/composables';
 
 const loading = ref(true);
 const replRef = useTemplateRef<InstanceType<typeof Repl>>('repl');
@@ -57,8 +57,9 @@ watchEffect(() => {
 <style>
 body {
   --at-apply: m-none text-13px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
-    'Helvetica Neue', sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+    sans-serif;
   --base: #444;
   --nav-height: 50px;
 }

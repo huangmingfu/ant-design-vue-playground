@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import type { SelectValue } from 'ant-design-vue/es/select';
+import type { Ref } from 'vue';
 import type { Store } from '@/composables';
 import type { VersionKey } from '@/utils/dependency';
-import type { SelectValue } from 'ant-design-vue/es/select';
+import { GithubFilled, ReloadOutlined, SettingOutlined, ShareAltOutlined } from '@ant-design/icons-vue';
+import { reactive } from 'vue';
 import { cdn, getSupportedAntdVersions, getSupportedTSVersions, getSupportedVueVersions } from '@/utils/dependency';
 import { copy } from '@/utils/tools';
-import { GithubFilled, ReloadOutlined, SettingOutlined, ShareAltOutlined } from '@ant-design/icons-vue';
-import { reactive, type Ref } from 'vue';
 
 const { store } = defineProps<{
   store: Store;
@@ -30,7 +31,7 @@ const cdnOptions = [
   },
 ];
 
-const versions = reactive<Record<VersionKey, { text: string; active: string ; published: Ref<string[]> }>>({
+const versions = reactive<Record<VersionKey, { text: string; active: string; published: Ref<string[]> }>>({
   antDesignVue: {
     text: 'Ant Design Vue',
     published: getSupportedAntdVersions(),

@@ -1,6 +1,7 @@
 import type { ReplStore } from '@vue/repl';
 import type { Initial, UserOptions } from '../types';
-import { genCompilerSfcLink, type VersionKey, type Versions } from '@/utils/dependency';
+import type { VersionKey, Versions } from '@/utils/dependency';
+import { genCompilerSfcLink } from '@/utils/dependency';
 
 export function useVersion({
   userOptions,
